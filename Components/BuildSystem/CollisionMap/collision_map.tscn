@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=3 uid="uid://b0nsckr0gmdl3"]
+
+[ext_resource type="Script" path="res://Components/BuildSystem/CollisionMap/collision_map.gd" id="1_57lj0"]
+[ext_resource type="PackedScene" uid="uid://blflnc8vpviet" path="res://Components/BuildSystem/Collider/collider.tscn" id="1_wu88j"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_mn3ln"]
+resource_name = "collision"
+scenes/1/scene = ExtResource("1_wu88j")
+
+[sub_resource type="TileSet" id="TileSet_55j5n"]
+sources/1 = SubResource("TileSetScenesCollectionSource_mn3ln")
+
+[node name="CollisionMap" type="TileMap"]
+tile_set = SubResource("TileSet_55j5n")
+format = 2
+script = ExtResource("1_57lj0")

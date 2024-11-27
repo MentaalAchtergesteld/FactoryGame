@@ -1,0 +1,2 @@
+class_name BuildingScene
+extends StaticBody2D

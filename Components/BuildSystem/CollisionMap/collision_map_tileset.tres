@@ -1,0 +1,10 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://rm4fihnhjyji"]
+
+[ext_resource type="PackedScene" uid="uid://blflnc8vpviet" path="res://Components/BuildSystem/Collider/collider.tscn" id="1_r1ure"]
+
+[sub_resource type="TileSetScenesCollectionSource" id="TileSetScenesCollectionSource_q816y"]
+resource_name = "collision_map"
+scenes/1/scene = ExtResource("1_r1ure")
+
+[resource]
+sources/0 = SubResource("TileSetScenesCollectionSource_q816y")

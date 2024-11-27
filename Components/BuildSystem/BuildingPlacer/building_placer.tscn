@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb05k85r3s4kw"]
+
+[ext_resource type="Script" path="res://Components/BuildSystem/BuildingPlacer/building_placer.gd" id="1_7epek"]
+
+[node name="BuildingPlacer" type="Node2D"]
+script = ExtResource("1_7epek")

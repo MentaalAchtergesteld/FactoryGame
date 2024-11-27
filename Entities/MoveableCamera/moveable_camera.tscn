@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyk8vymydmcks"]
+
+[ext_resource type="Script" path="res://Entities/MoveableCamera/moveable_camera.gd" id="1_4x65c"]
+[ext_resource type="Script" path="res://Components/BuildSystem/BuildingPlacer/building_placer.gd" id="2_x13tt"]
+[ext_resource type="Resource" uid="uid://dgquiyc3rh2bu" path="res://Components/BuildSystem/Buildings/TestBuilding/test_building.tres" id="3_q540e"]
+
+[node name="MoveableCamera" type="Node2D"]
+script = ExtResource("1_4x65c")
+max_speed = 100.0
+zoom_amount = 10.0
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="BuildingPlacer" type="Node2D" parent="."]
+script = ExtResource("2_x13tt")
+max_place_range = 512.0
+debug_building = ExtResource("3_q540e")

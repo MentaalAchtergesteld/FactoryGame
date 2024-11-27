@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://blflnc8vpviet"]
+
+[ext_resource type="Script" path="res://Components/BuildSystem/Collider/collider.gd" id="1_dt1kx"]
+[ext_resource type="Texture2D" uid="uid://mdt7arov72d8" path="res://Assets/Sprites/is_not_colliding.png" id="2_71um8"]
+[ext_resource type="Texture2D" uid="uid://dgbt7i8fs7bq4" path="res://Assets/Sprites/is_colliding.png" id="3_r8vsu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gyjxc"]
+size = Vector2(16, 16)
+
+[node name="Collider" type="Area2D"]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_dt1kx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gyjxc")
+
+[node name="IsNotColliding" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.498039)
+texture = ExtResource("2_71um8")
+
+[node name="IsColliding" type="Sprite2D" parent="."]
+visible = false
+self_modulate = Color(1, 1, 1, 0.498039)
+texture = ExtResource("3_r8vsu")

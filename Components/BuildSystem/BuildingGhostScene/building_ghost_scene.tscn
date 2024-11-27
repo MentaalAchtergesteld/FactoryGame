@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://busw5muchqb7d"]
+
+[ext_resource type="Script" path="res://Components/BuildSystem/BuildingGhostScene/building_ghost_scene.gd" id="1_h01xb"]
+
+[node name="BuildingGhostScene" type="Node2D"]
+script = ExtResource("1_h01xb")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+self_modulate = Color(1, 1, 1, 0.498039)
