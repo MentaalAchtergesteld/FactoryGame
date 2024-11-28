@@ -1,18 +1,26 @@
-[gd_scene load_steps=2 format=3 uid="uid://ba6myeo3ihv3t"]
+[gd_scene load_steps=4 format=3 uid="uid://ba6myeo3ihv3t"]
 
+[ext_resource type="Texture2D" uid="uid://cxekakploqm27" path="res://Assets/Sprites/bigboi.png" id="1_sjj55"]
 [ext_resource type="Script" path="res://Scenes/UI/BuildingSelectionScreen/BuildingOption/building_option_button.gd" id="1_yyf2y"]
+[ext_resource type="Resource" uid="uid://y8bjlvwgkpi6" path="res://Components/BuildSystem/Buildings/BigBoi/big_boi.tres" id="3_axe3p"]
 
 [node name="BuildingOptionButton" type="TextureRect"]
+custom_minimum_size = Vector2(64, 64)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = -1088.0
-offset_bottom = -600.0
+offset_bottom = -584.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(0.5, 0.5)
 size_flags_horizontal = 2
 size_flags_vertical = 4
+texture = ExtResource("1_sjj55")
+expand_mode = 1
+stretch_mode = 4
 script = ExtResource("1_yyf2y")
+building = ExtResource("3_axe3p")
 
 [node name="Button" type="Button" parent="."]
 modulate = Color(1, 1, 1, 0.247059)

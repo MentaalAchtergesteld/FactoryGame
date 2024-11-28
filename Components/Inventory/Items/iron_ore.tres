@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://b6ecme17rac2c"]
+
+[ext_resource type="Script" path="res://Components/Inventory/item.gd" id="1_0y2el"]
+
+[resource]
+script = ExtResource("1_0y2el")
+id = "iron_ore"
+name = "Iron Ore"
+description = "A clump of iron ore."
+max_stack_size = 64

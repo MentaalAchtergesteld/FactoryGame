@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dgbt7i8fs7bq4" path="res://Assets/Sprites/is_colliding.png" id="3_r8vsu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gyjxc"]
-size = Vector2(16, 16)
+size = Vector2(14, 14)
 
 [node name="Collider" type="Area2D"]
 collision_layer = 4

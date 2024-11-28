@@ -5,8 +5,7 @@ signal building_selected(building: Building);
 
 var building_option_button_scene: PackedScene = preload("res://Scenes/UI/BuildingSelectionScreen/BuildingOption/building_option_button.tscn");
 
-@onready var animation_player: AnimationPlayer = $AnimationPlayer;
-@onready var buildings_container: HBoxContainer = $MarginContainer/PanelContainer/VBoxContainer/ScrollContainer/MarginContainer/BuildingsContainer;
+@export var buildings_container: HBoxContainer;
 
 func _on_building_selected(building: Building):
 	building_selected.emit(building);
@@ -35,9 +34,11 @@ func load_buildings():
 		buildings_container.add_child(building_option);
 
 func open():
-	print("Hi");
 	load_buildings();
-	animation_player.play("open");
 
 func close():
-	animation_player.play("close");
+	pass
+
+func _ready():
+	open();
+	super();

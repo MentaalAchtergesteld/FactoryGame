@@ -9,6 +9,7 @@
 script = ExtResource("1_3vumc")
 name = "Test Building"
 description = "A useless building just to test the system."
+id = "test_building"
 building_scene = ExtResource("1_bx6pw")
 collision_sprite = ExtResource("2_ttmac")
 collision_map = ExtResource("1_btwh6")

@@ -9,6 +9,7 @@
 script = ExtResource("1_c0b7u")
 name = "Big Boi"
 description = "huge as fuck building"
+id = "big_boi"
 building_scene = ExtResource("1_gkw06")
 collision_sprite = ExtResource("3_awtif")
 collision_map = ExtResource("2_omngk")

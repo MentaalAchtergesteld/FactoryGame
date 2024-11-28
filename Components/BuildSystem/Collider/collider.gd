@@ -7,6 +7,11 @@ extends Area2D
 
 func is_colliding() -> bool:
 	return get_overlapping_bodies().size() > 0;
+	#var overlapping_bodies = get_overlapping_bodies();
+	#if overlapping_bodies.size() > 0:
+	#	return true;
+	#else:
+	#	return false;
 
 func display_collision():
 	if is_colliding():
@@ -16,10 +21,10 @@ func display_collision():
 		is_colliding_sprite.visible = false;
 		is_not_colliding_sprite.visible = true;
 
-func _on_body_entered(body: Node2D):
+func _on_body_entered(_body: Node2D):
 	display_collision();
 
-func _on_body_exited(body: Node2D):
+func _on_body_exited(_body: Node2D):
 	display_collision();
 
 func _ready():

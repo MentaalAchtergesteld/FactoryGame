@@ -16,13 +16,14 @@ extends Node2D
 var current_ghost: BuildingGhostScene;
 var is_placing_building: bool = false;
 
-func _input(event):
-	
+func _input(_event):
 	if Input.is_action_just_pressed("place_building"):
 		try_place_building();
-	
 	elif Input.is_action_just_pressed("end_placing_building"):
 		end_placing_building();
+	
+	if Input.is_action_just_pressed("rotate_building") && current_ghost != null:
+		current_ghost.rotate_clockwise();
 	
 	if !debug: return;
 	if debug_building == null: return;
@@ -31,7 +32,7 @@ func _input(event):
 
 func get_mouse_grid_position() -> Vector2:
 	var mouse_position = get_global_mouse_position();
-	return floor(mouse_position / grid_size) * grid_size;
+	return floor(mouse_position / grid_size  + Vector2(0.5, 0.5)) * grid_size;
 
 func set_ghost(building: Building):
 	if current_ghost != null: remove_ghost();
@@ -67,11 +68,12 @@ func try_place_building() -> bool:
 	else:
 		return false;
 
-func _process(delta):
+func _process(_delta):
 	if Engine.is_editor_hint(): return;
 	if current_ghost == null: return;
 	
-	current_ghost.global_position = get_mouse_grid_position();
+	var ghost_size = current_ghost.get_size();
+	current_ghost.global_position = get_mouse_grid_position() - floor(ghost_size / 2) * grid_size;
 
 func _draw():
 	if !debug && !Engine.is_editor_hint(): return;

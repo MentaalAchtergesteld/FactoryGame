@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://cno505h1wfojs"]
+
+[ext_resource type="Script" path="res://Components/Inventory/item.gd" id="1_ysocc"]
+
+[resource]
+script = ExtResource("1_ysocc")
+id = "iron_ingot"
+name = "Iron Ingot"
+description = "An iron ingot."
+max_stack_size = 64

@@ -1,3 +1,4 @@
+@tool
 class_name BuildingOptionButton
 extends TextureRect
 
@@ -5,25 +6,33 @@ signal building_selected(building: Building);
 
 @export var button_size: Vector2 = Vector2(64, 64);
 
-var building: Building;
+@export var building: Building:
+	set = set_building;
+
+@export var force_update: bool = false:
+	set(value):
+		force_update = false;
+		if building != null: update_texture();
 
 @onready var button: Button = $Button;
 
+
 func set_building(_building: Building):
 	building = _building;
+	update_texture();
 
-func scale_texture():
-	var texture = building.collision_sprite;
-	var scale_width = button_size.x / texture.get_width();
-	var scale_height = button_size.y / texture.get_height();
+#func scale_texture():
+#	var _texture = building.collision_sprite;
+#	var scale_width = button_size.x / _texture.get_width();
+#	var scale_height = button_size.y / _texture.get_height();
+#	
+#	var scale_factor = min(scale_width, scale_height);
 	
-	var scale_factor = min(scale_width, scale_height);
-	
-	scale = Vector2(scale_factor, scale_factor);
-
 func update_texture():
+	if building == null: return;
 	texture = building.collision_sprite;
-	button.size = texture.get_size();
+	if texture == null: return;
+#	scale_texture();
 
 
 func _ready():

@@ -4,6 +4,7 @@ extends Resource
 @export_group("Building Details")
 @export var name: String = "Building";
 @export_multiline var description: String = "A Building.";
+@export var id: String = "building";
 
 @export_group("Building")
 @export var building_scene: PackedScene; 
@@ -45,8 +46,8 @@ func get_ghost() -> BuildingGhostScene:
 	
 	if not scene is BuildingGhostScene: return null;
 	
-	var ghost_scene = scene as BuildingGhostScene;
-	ghost_scene.set_building(clone(self));
+	var ghost = scene as BuildingGhostScene;
+	ghost.set_building(clone(self));
 	
-	return ghost_scene;
+	return ghost;
 

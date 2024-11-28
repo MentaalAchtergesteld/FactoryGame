@@ -8,13 +8,6 @@ extends Node2D
 
 var building_selection_screen_name = "building_selection";
 
-func _input(event):
-	if Input.is_action_just_pressed("open_screen"):
-		if UIManager.is_screen_open(building_selection_screen_name):
-			UIManager.close_screen();
-		else:
-			UIManager.open_screen(building_selection_screen_name);
-
 func move_camera(delta: float) -> void:
 	var movement_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down");
 	movement_vector = movement_vector.normalized();
