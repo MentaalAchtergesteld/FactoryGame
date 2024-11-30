@@ -17,7 +17,7 @@ var current_ghost: BuildingGhostScene;
 var is_placing_building: bool = false;
 
 func _input(_event):
-	if Input.is_action_just_pressed("place_building"):
+	if Input.is_action_pressed("place_building"):
 		try_place_building();
 	elif Input.is_action_just_pressed("end_placing_building"):
 		end_placing_building();
@@ -63,7 +63,7 @@ func try_place_building() -> bool:
 		return false;
 	
 	if current_ghost.place(get_tree().root.get_node("World")):
-		end_placing_building();
+		#end_placing_building();
 		return true;
 	else:
 		return false;

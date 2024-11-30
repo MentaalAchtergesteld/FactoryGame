@@ -11,11 +11,16 @@ func _init(_item: Item, _count: int = 0):
 func clone() -> ItemStack:
 	return ItemStack.new(item, count);
 
-func take(amount_to_take: int):
-	count = max(0, count-amount_to_take);
+func remove(amount: int):
+	var total_removed = min(count, amount);
+	count -= total_removed;
+	return amount - total_removed;
 
-func add(amount_to_add: int):
-	count = min(item.max_stack_size, count+amount_to_add);
+func add(amount: int) -> int:
+	var space_left = item.max_stack_size - count;
+	var total_added = min(space_left, amount);
+	count += total_added;
+	return total_added - amount;
 
-func set_count(new_count: int):
-	count = new_count;
+func is_full() -> bool:
+	return count >= item.max_stack_size;

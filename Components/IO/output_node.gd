@@ -1,18 +1,16 @@
 class_name OutputNode
 extends Area2D
 
-signal stack_pushed(item_stack: ItemStack);
+signal item_pushed(item: Item, amount: int);
 
-func push_item_stack(item_stack: ItemStack) -> ItemStack:
-	var cloned_stack = item_stack.clone();
-	
+# Returns the amount that could not be pushed.
+func push_item(item: Item, amount: int) -> int:
 	var overlapping_nodes = get_overlapping_areas();
-	if overlapping_nodes.size() == 0: return cloned_stack;
+	if overlapping_nodes.size() == 0: return amount;
 	var input_node = overlapping_nodes[0] as InputNode;
 	
-	var leftover = input_node.push_item_stack(cloned_stack);
+	var remaining_amount = input_node.push_item(item, amount);
 		
-	cloned_stack.count -= leftover.count;
-	stack_pushed.emit(cloned_stack);
+	item_pushed.emit(item, remaining_amount);
 	
-	return leftover;
+	return remaining_amount;

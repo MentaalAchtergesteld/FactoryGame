@@ -12,5 +12,4 @@ rotation = 1.5708
 
 [node name="Sprite2D" type="Sprite2D" parent="RotationPoint"]
 self_modulate = Color(1, 1, 1, 0.498039)
-position = Vector2(32, 24)
 texture = ExtResource("2_x2p2t")

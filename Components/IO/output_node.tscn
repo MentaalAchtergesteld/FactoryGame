@@ -1,8 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://ejmexu6i8aey"]
+[gd_scene load_steps=3 format=3 uid="uid://ejmexu6i8aey"]
 
 [ext_resource type="Script" path="res://Components/IO/output_node.gd" id="1_s1qom"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ijini"]
+size = Vector2(12, 12)
 
 [node name="OutputNode" type="Area2D"]
 collision_layer = 16
 collision_mask = 8
 script = ExtResource("1_s1qom")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ijini")

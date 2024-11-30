@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://e8n1ekfaikia"]
+
+[ext_resource type="TileSet" uid="uid://rm4fihnhjyji" path="res://Components/BuildSystem/CollisionMap/collision_map_tileset.tres" id="1_1grqx"]
+[ext_resource type="Script" path="res://Components/BuildSystem/CollisionMap/collision_map.gd" id="1_tkouq"]
+
+[node name="BadBeltCollisionMap" type="TileMap"]
+tile_set = ExtResource("1_1grqx")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 65536)
+script = ExtResource("1_tkouq")

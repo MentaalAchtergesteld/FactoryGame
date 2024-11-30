@@ -6,5 +6,5 @@
 [node name="TestBuildingCollisionMap" type="TileMap"]
 tile_set = ExtResource("1_aikcd")
 format = 2
-layer_0/tile_data = PackedInt32Array(0, 0, 65536, 65536, 0, 65536, 65537, 0, 65536, 1, 0, 65536, 2, 0, 65536, 65538, 0, 65536, 65539, 0, 65536, 3, 0, 65536, 131075, 0, 65536, 131074, 0, 65536)
+layer_0/tile_data = PackedInt32Array(0, 0, 65536, 65536, 0, 65536, 65537, 0, 65536, 131074, 0, 65536, 131075, 0, 65536, 3, 0, 65536, 2, 0, 65536, 65538, 0, 65536, 65539, 0, 65536, 1, 0, 65536)
 script = ExtResource("1_0w81t")

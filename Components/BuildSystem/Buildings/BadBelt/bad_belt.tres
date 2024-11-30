@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://cj8i7txl5lm6y"]
+
+[ext_resource type="PackedScene" uid="uid://jqoxwublyu86" path="res://Components/BuildSystem/Buildings/BadBelt/bad_belt.tscn" id="1_livpt"]
+[ext_resource type="Texture2D" uid="uid://bthqlg8uv6fid" path="res://Assets/Sprites/bad_belt.png" id="1_wp8g4"]
+[ext_resource type="Script" path="res://Components/BuildSystem/Building/building.gd" id="1_xf7r6"]
+[ext_resource type="PackedScene" uid="uid://e8n1ekfaikia" path="res://Components/BuildSystem/Buildings/BadBelt/bad_belt_collision_map.tscn" id="2_3usgs"]
+
+[resource]
+script = ExtResource("1_xf7r6")
+name = "Bad Belt"
+description = "A terrible belt."
+id = "bad_belt"
+building_scene = ExtResource("1_livpt")
+collision_sprite = ExtResource("1_wp8g4")
+collision_map = ExtResource("2_3usgs")
