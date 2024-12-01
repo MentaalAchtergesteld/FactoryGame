@@ -13,6 +13,6 @@ func get_buildings() -> Array[Building]:
 	return buildings_array;
 
 func _ready():
-	register_building(preload("res://Components/BuildSystem/Buildings/TestBuilding/test_building.tres"));
-	register_building(preload("res://Components/BuildSystem/Buildings/BigBoi/big_boi.tres"));
-	register_building(preload("res://Components/BuildSystem/Buildings/BadBelt/bad_belt.tres"));
+	register_building(preload("res://Resources/Buildings/TestBuilding/test_building.tres"));
+	register_building(preload("res://Resources/Buildings/BigBoi/big_boi.tres"));
+	register_building(preload("res://Resources/Buildings/BadBelt/bad_belt.tres"));

@@ -1,0 +1,64 @@
+[gd_scene load_steps=11 format=3 uid="uid://jqoxwublyu86"]
+
+[ext_resource type="Script" path="res://Resources/Buildings/BadBelt/bad_belt.gd" id="1_panr7"]
+[ext_resource type="Texture2D" uid="uid://bthqlg8uv6fid" path="res://Assets/Sprites/bad_belt.png" id="2_qavb3"]
+[ext_resource type="PackedScene" uid="uid://ejmexu6i8aey" path="res://Components/IO/output_node.tscn" id="3_jnysu"]
+[ext_resource type="PackedScene" uid="uid://rwvdhvwcwga4" path="res://Components/IO/input_node.tscn" id="4_5o66x"]
+[ext_resource type="Script" path="res://Components/Inventory/inventory.gd" id="5_u5ylt"]
+[ext_resource type="PackedScene" uid="uid://daoao5f5x4r5d" path="res://Components/DestroyButton/destroy_button.tscn" id="6_2oj23"]
+[ext_resource type="Script" path="res://Components/DestroyButton/DestroyLabel.gd" id="7_jhudh"]
+[ext_resource type="Script" path="res://Components/KeepUpright/KeepUpright.gd" id="8_tihm0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_umhrq"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r4g00"]
+size = Vector2(16, 16)
+
+[node name="BadBelt" type="StaticBody2D"]
+collision_layer = 2
+input_pickable = true
+script = ExtResource("1_panr7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_umhrq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("2_qavb3")
+
+[node name="OutputNode" parent="." instance=ExtResource("3_jnysu")]
+position = Vector2(8, -8)
+
+[node name="InputNode" parent="." node_paths=PackedStringArray("inventory") instance=ExtResource("4_5o66x")]
+position = Vector2(8, 8)
+inventory = NodePath("../Inventory")
+
+[node name="DestroyButton" parent="." node_paths=PackedStringArray("actor_to_destroy") instance=ExtResource("6_2oj23")]
+position = Vector2(8, 8)
+destroy_time = 1.0
+actor_to_destroy = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyButton"]
+shape = SubResource("RectangleShape2D_r4g00")
+metadata/_edit_lock_ = true
+
+[node name="KeepUpright" type="Node2D" parent="."]
+position = Vector2(8, 8)
+script = ExtResource("8_tihm0")
+
+[node name="DestroyLabel" type="Label" parent="KeepUpright" node_paths=PackedStringArray("destroy_button")]
+offset_left = -23.0
+offset_top = -8.0
+offset_right = 23.0
+offset_bottom = 8.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_jhudh")
+destroy_button = NodePath("../../DestroyButton")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("5_u5ylt")
+inventory_size = 1

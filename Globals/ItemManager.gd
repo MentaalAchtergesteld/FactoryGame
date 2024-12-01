@@ -27,5 +27,4 @@ func get_items() -> Array[Item]:
 	return items_array;
 
 func _ready():
-	#register_item(preload("res://Components/Inventory/Items/coal.tres"));
-	load_from_directory("res://Components/Inventory/Items");
+	load_from_directory("res://Resources/Items");
