@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://r4jjjhkogj6e"]
+
+[ext_resource type="Script" path="res://Components/BuildSystem/CollisionMap/collision_map.gd" id="1_5bbno"]
+[ext_resource type="TileSet" uid="uid://rm4fihnhjyji" path="res://Components/BuildSystem/CollisionMap/collision_map_tileset.tres" id="1_g5h3j"]
+
+[node name="MinerCollisionMap" type="TileMap"]
+tile_set = ExtResource("1_g5h3j")
+format = 2
+layer_0/tile_data = PackedInt32Array(0, 0, 65536, 1, 0, 65536, 2, 0, 65536, 65538, 0, 65536, 131074, 0, 65536, 131073, 0, 65536, 131072, 0, 65536, 65536, 0, 65536, 65537, 0, 65536)
+script = ExtResource("1_5bbno")

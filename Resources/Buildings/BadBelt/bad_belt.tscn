@@ -24,10 +24,6 @@ script = ExtResource("1_panr7")
 position = Vector2(8, 8)
 shape = SubResource("RectangleShape2D_umhrq")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(8, 8)
-texture = ExtResource("2_qavb3")
-
 [node name="OutputNode" parent="." instance=ExtResource("3_jnysu")]
 position = Vector2(8, -8)
 
@@ -58,6 +54,10 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("7_jhudh")
 destroy_button = NodePath("../../DestroyButton")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("2_qavb3")
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("5_u5ylt")

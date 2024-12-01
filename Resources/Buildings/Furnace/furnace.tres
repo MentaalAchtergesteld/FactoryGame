@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://d3mkwenw45qij"]
+
+[ext_resource type="PackedScene" uid="uid://by2v3fhhr2uwu" path="res://Resources/Buildings/Furnace/furnace.tscn" id="1_ayg8q"]
+[ext_resource type="Texture2D" uid="uid://dlob7pwmtiqkd" path="res://Assets/Sprites/furnace.png" id="1_g1eql"]
+[ext_resource type="Script" path="res://Components/BuildSystem/Building/building.gd" id="1_oefv1"]
+[ext_resource type="PackedScene" uid="uid://b754s6fdeswkb" path="res://Resources/Buildings/Furnace/furnace_collision_map.tscn" id="1_v52rp"]
+
+[resource]
+script = ExtResource("1_oefv1")
+name = "Furnace"
+description = "An industrial furnace to smelt stuff into other stuff."
+id = "furnace"
+building_scene = ExtResource("1_ayg8q")
+collision_sprite = ExtResource("1_g1eql")
+collision_map = ExtResource("1_v52rp")

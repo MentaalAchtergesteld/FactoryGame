@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://by2v3fhhr2uwu"]
+
+[ext_resource type="Script" path="res://Components/BuildSystem/BuildingScene/building_scene.gd" id="1_kx4o4"]
+[ext_resource type="Script" path="res://Components/DestroyButton/DestroyButton.gd" id="2_k3bge"]
+[ext_resource type="Texture2D" uid="uid://dlob7pwmtiqkd" path="res://Assets/Sprites/furnace.png" id="2_l3nmv"]
+[ext_resource type="Script" path="res://Components/KeepUpright/KeepUpright.gd" id="4_jopa0"]
+[ext_resource type="Script" path="res://Components/DestroyButton/DestroyLabel.gd" id="5_yfa1g"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d35ri"]
+size = Vector2(32, 32)
+
+[node name="Furnace" type="StaticBody2D"]
+script = ExtResource("1_kx4o4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_d35ri")
+
+[node name="DestroyButton" type="Area2D" parent="." node_paths=PackedStringArray("actor_to_destroy")]
+script = ExtResource("2_k3bge")
+destroy_time = 3.0
+actor_to_destroy = NodePath("..")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="DestroyButton"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_d35ri")
+
+[node name="Furnace" type="Sprite2D" parent="."]
+position = Vector2(16, 16)
+texture = ExtResource("2_l3nmv")
+
+[node name="KeepUpright" type="Node2D" parent="."]
+position = Vector2(16, 16)
+script = ExtResource("4_jopa0")
+
+[node name="DestroyLabel" type="Label" parent="KeepUpright" node_paths=PackedStringArray("destroy_button")]
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 12
+text = "0.0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_yfa1g")
+destroy_button = NodePath("../../DestroyButton")

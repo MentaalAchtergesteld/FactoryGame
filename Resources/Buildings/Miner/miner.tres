@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://cvx5tl6pv5cum"]
+
+[ext_resource type="PackedScene" uid="uid://o0leyo6bqktw" path="res://Resources/Buildings/Miner/miner.tscn" id="1_5dneg"]
+[ext_resource type="Script" path="res://Components/BuildSystem/Building/building.gd" id="1_7bjt0"]
+[ext_resource type="Texture2D" uid="uid://bnnq8lqd8rktm" path="res://Assets/Sprites/miner.png" id="1_d6wv4"]
+[ext_resource type="PackedScene" uid="uid://r4jjjhkogj6e" path="res://Resources/Buildings/Miner/miner_collision_map.tscn" id="1_px804"]
+
+[resource]
+script = ExtResource("1_7bjt0")
+name = "Miner"
+description = "An automatic miner to extract resources from the ground."
+id = "miner"
+building_scene = ExtResource("1_5dneg")
+collision_sprite = ExtResource("1_d6wv4")
+collision_map = ExtResource("1_px804")

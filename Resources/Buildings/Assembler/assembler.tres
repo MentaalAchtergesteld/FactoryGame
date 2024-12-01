@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://b1n61xgfdumyk"]
+
+[ext_resource type="PackedScene" uid="uid://col4177isaw6e" path="res://Resources/Buildings/Assembler/asembller.tscn" id="1_abkm0"]
+[ext_resource type="Script" path="res://Components/BuildSystem/Building/building.gd" id="1_cvqjw"]
+[ext_resource type="Texture2D" uid="uid://c3vve8x3uwbkq" path="res://Assets/Sprites/assembler.png" id="1_i4423"]
+[ext_resource type="PackedScene" uid="uid://b1mqncnx4tktu" path="res://Resources/Buildings/Assembler/assembler_collision_map.tscn" id="1_k6w0r"]
+
+[resource]
+script = ExtResource("1_cvqjw")
+name = "Assembler"
+description = "Create stuff. From other stuff. That's all this thing does."
+id = "assembler"
+building_scene = ExtResource("1_abkm0")
+collision_sprite = ExtResource("1_i4423")
+collision_map = ExtResource("1_k6w0r")
