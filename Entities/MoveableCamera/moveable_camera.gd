@@ -4,9 +4,31 @@ extends Node2D
 @export var max_speed: float = 5000.0;
 @export var zoom_amount: float = 0.5;
 
-@onready var camera: Camera2D = $Camera2D;
+@export var building_selection_screen: Screen;
 
-var building_selection_screen_name = "building_selection";
+@onready var camera: Camera2D = $Camera2D;
+@onready var building_placer: BuildingPlacer = $BuildingPlacer;
+
+func _on_screen_building_selected(building: Building):
+	building_placer.start_placing_building(building);
+
+func _on_screen_close(screen: ScreenScene):
+	screen.closed.disconnect(_on_screen_close);
+	if not (screen is BuildingSelectionScreenScene): return;
+	
+	var building_selection_screen_node = screen as BuildingSelectionScreenScene;
+	building_selection_screen_node.building_selected.disconnect(_on_screen_building_selected);
+
+func open_screen():
+	var screen_node = UIManager.open_screen(building_selection_screen);
+	if screen_node == null: return;
+	if not (screen_node is BuildingSelectionScreenScene):
+		push_warning("Supplied scene is not BuildingSelectionScreenScene");
+		return;
+	
+	var building_selection_screen_node = screen_node as BuildingSelectionScreenScene;
+	building_selection_screen_node.building_selected.connect(_on_screen_building_selected);
+	building_selection_screen_node.closed.connect(_on_screen_close);
 
 func move_camera(delta: float) -> void:
 	var movement_vector = Input.get_vector("move_left", "move_right", "move_up", "move_down");
@@ -22,14 +44,10 @@ func zoom_camera(delta: float) -> void:
 	
 	camera.zoom += Vector2(zoom_amount, zoom_amount) * zoom_direction * delta;
 
+func _input(event):
+	if Input.is_action_just_pressed("open_screen"):
+		open_screen();
+
 func _process(delta: float) -> void:
 	move_camera(delta);
 	zoom_camera(delta);
-
-func _on_building_selected(building: Building):
-	$BuildingPlacer.start_placing_building(building);
-
-func _ready():
-	var building_selection_screen = UIManager.get_screen(building_selection_screen_name);
-	if building_selection_screen is BuildingSelectionScreen:
-		building_selection_screen.building_selected.connect(_on_building_selected);

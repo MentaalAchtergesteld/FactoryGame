@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bdogbf5gn0y5y"]
+[gd_scene load_steps=5 format=3 uid="uid://bdogbf5gn0y5y"]
 
 [ext_resource type="Script" path="res://Scenes/World/world.gd" id="1_kyjw8"]
 [ext_resource type="PackedScene" uid="uid://dyk8vymydmcks" path="res://Entities/MoveableCamera/moveable_camera.tscn" id="1_os40s"]
-[ext_resource type="PackedScene" uid="uid://bifcj1ovagqq7" path="res://Scenes/UI/BuildingSelectionScreen/building_selection_screen.tscn" id="3_i7st7"]
 
 [sub_resource type="GDScript" id="GDScript_8wl3d"]
 
@@ -23,11 +22,6 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = SubResource("GDScript_8wl3d")
-
-[node name="BuildingSelectionScreen" parent="CanvasLayer/UIParent" instance=ExtResource("3_i7st7")]
-layout_mode = 2
-size_flags_horizontal = 1
-size_flags_vertical = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = SubResource("PlaceholderTexture2D_611bm")

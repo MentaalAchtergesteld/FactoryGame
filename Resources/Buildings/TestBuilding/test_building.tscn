@@ -31,7 +31,11 @@ actor_to_destroy = NodePath("..")
 [node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="DestroyButton" index="1"]
 polygon = PackedVector2Array(0, 0, 64, 0, 64, 48, 32, 48, 32, 32, 0, 32)
 
-[node name="KeepUpright" type="Node2D" parent="." index="4"]
+[node name="Sprite2D" type="Sprite2D" parent="." index="4"]
+position = Vector2(32, 24)
+texture = ExtResource("3_nmka0")
+
+[node name="KeepUpright" type="Node2D" parent="." index="5"]
 position = Vector2(32, 24)
 metadata/_edit_lock_ = true
 
@@ -53,10 +57,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("8_5ytt8")
 destroy_button = NodePath("../../DestroyButton")
-
-[node name="Sprite2D" type="Sprite2D" parent="." index="5"]
-position = Vector2(32, 24)
-texture = ExtResource("3_nmka0")
 
 [node name="Inventory" type="Node" parent="." index="6"]
 script = ExtResource("4_hrjx5")

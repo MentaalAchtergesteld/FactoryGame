@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="Screen" load_steps=3 format=3 uid="uid://nnbwsrfjkidx"]
+
+[ext_resource type="Script" path="res://Resources/Screens/screen.gd" id="1_23kcj"]
+[ext_resource type="PackedScene" uid="uid://cyri8vn1gndjm" path="res://Resources/Screens/BuildingSelectionScreen/building_selection_screen_scene.tscn" id="1_87ypu"]
+
+[resource]
+script = ExtResource("1_23kcj")
+screen_scene = ExtResource("1_87ypu")

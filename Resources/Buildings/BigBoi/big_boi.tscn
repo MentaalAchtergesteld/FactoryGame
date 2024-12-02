@@ -32,6 +32,10 @@ actor_to_destroy = NodePath("..")
 polygon = PackedVector2Array(0, 0, 64, 0, 64, 48, 96, 48, 96, 0, 128, 0, 128, 64, 64, 64, 64, 80, 97, 80, 96, 96, 128, 96, 128, 128, 112, 128, 112, 112, 96, 112, 96, 128, 0, 128, 0, 80, 32, 80, 32, 32, 0, 32)
 metadata/_edit_lock_ = true
 
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(64, 64)
+texture = ExtResource("2_0uf35")
+
 [node name="KeepUpright" type="Node2D" parent="."]
 position = Vector2(64, 64)
 script = ExtResource("6_tjb2a")
@@ -62,10 +66,6 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("7_vp0v2")
 destroy_button = NodePath("../../DestroyButton")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(64, 64)
-texture = ExtResource("2_0uf35")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0

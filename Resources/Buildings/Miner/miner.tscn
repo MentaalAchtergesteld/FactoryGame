@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Components/BuildSystem/BuildingScene/building_scene.gd" id="1_ugpd5"]
 [ext_resource type="Texture2D" uid="uid://bnnq8lqd8rktm" path="res://Assets/Sprites/miner.png" id="2_qhpdk"]
-[ext_resource type="Script" path="res://Components/DestroyButton/DestroyButton.gd" id="3_o17p7"]
+[ext_resource type="PackedScene" uid="uid://daoao5f5x4r5d" path="res://Components/DestroyButton/destroy_button.tscn" id="3_l1v7l"]
 [ext_resource type="Script" path="res://Components/KeepUpright/KeepUpright.gd" id="4_xqkub"]
 [ext_resource type="Script" path="res://Components/DestroyButton/DestroyLabel.gd" id="5_78xp7"]
 
@@ -20,12 +20,11 @@ shape = SubResource("RectangleShape2D_kjh5i")
 position = Vector2(24, 24)
 texture = ExtResource("2_qhpdk")
 
-[node name="DestroyButton" type="Area2D" parent="." node_paths=PackedStringArray("actor_to_destroy")]
-script = ExtResource("3_o17p7")
-destroy_time = 4.0
+[node name="DestroyButton" parent="." node_paths=PackedStringArray("actor_to_destroy") instance=ExtResource("3_l1v7l")]
+destroy_time = 5.0
 actor_to_destroy = NodePath("..")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="DestroyButton"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyButton"]
 position = Vector2(24, 24)
 shape = SubResource("RectangleShape2D_kjh5i")
 

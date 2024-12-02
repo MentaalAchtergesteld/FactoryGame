@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyk8vymydmcks"]
+[gd_scene load_steps=6 format=3 uid="uid://dyk8vymydmcks"]
 
 [ext_resource type="Script" path="res://Entities/MoveableCamera/moveable_camera.gd" id="1_4x65c"]
+[ext_resource type="Resource" uid="uid://nnbwsrfjkidx" path="res://Resources/Screens/BuildingSelectionScreen/building_selection_screen.tres" id="2_qwd7t"]
 [ext_resource type="Script" path="res://Components/BuildSystem/BuildingPlacer/building_placer.gd" id="2_x13tt"]
 [ext_resource type="Resource" uid="uid://dgquiyc3rh2bu" path="res://Resources/Buildings/TestBuilding/test_building.tres" id="3_q540e"]
 [ext_resource type="Texture2D" uid="uid://fp0d4ec42455" path="res://Assets/Sprites/dog.png" id="4_jdqy5"]
@@ -9,6 +10,7 @@
 script = ExtResource("1_4x65c")
 max_speed = 100.0
 zoom_amount = 10.0
+building_selection_screen = ExtResource("2_qwd7t")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 

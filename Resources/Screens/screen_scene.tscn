@@ -1,0 +1,26 @@
+[gd_scene load_steps=2 format=3 uid="uid://cqakqi7bwguea"]
+
+[sub_resource type="GDScript" id="GDScript_cuxud"]
+script/source = "class_name ScreenScene
+extends Control
+
+var resource: Screen;
+
+func set_resource(_resource: Screen):
+	resource = _resource;
+
+func open():
+	pass
+
+func close():
+	pass
+"
+
+[node name="Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_cuxud")

@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://by2v3fhhr2uwu"]
 
 [ext_resource type="Script" path="res://Components/BuildSystem/BuildingScene/building_scene.gd" id="1_kx4o4"]
-[ext_resource type="Script" path="res://Components/DestroyButton/DestroyButton.gd" id="2_k3bge"]
 [ext_resource type="Texture2D" uid="uid://dlob7pwmtiqkd" path="res://Assets/Sprites/furnace.png" id="2_l3nmv"]
+[ext_resource type="PackedScene" uid="uid://daoao5f5x4r5d" path="res://Components/DestroyButton/destroy_button.tscn" id="3_12282"]
 [ext_resource type="Script" path="res://Components/KeepUpright/KeepUpright.gd" id="4_jopa0"]
 [ext_resource type="Script" path="res://Components/DestroyButton/DestroyLabel.gd" id="5_yfa1g"]
 
@@ -16,18 +16,17 @@ script = ExtResource("1_kx4o4")
 position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_d35ri")
 
-[node name="DestroyButton" type="Area2D" parent="." node_paths=PackedStringArray("actor_to_destroy")]
-script = ExtResource("2_k3bge")
-destroy_time = 3.0
-actor_to_destroy = NodePath("..")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="DestroyButton"]
-position = Vector2(16, 16)
-shape = SubResource("RectangleShape2D_d35ri")
-
 [node name="Furnace" type="Sprite2D" parent="."]
 position = Vector2(16, 16)
 texture = ExtResource("2_l3nmv")
+
+[node name="DestroyButton" parent="." node_paths=PackedStringArray("actor_to_destroy") instance=ExtResource("3_12282")]
+destroy_time = 4.0
+actor_to_destroy = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyButton"]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_d35ri")
 
 [node name="KeepUpright" type="Node2D" parent="."]
 position = Vector2(16, 16)

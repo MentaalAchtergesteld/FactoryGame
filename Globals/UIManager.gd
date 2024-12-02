@@ -1,34 +1,25 @@
 extends Node
 
 var ui_parent: Control;
-var screens: Dictionary = {};
-var current_screen: UIScreen;
+var current_screen: Screen;
 
-func register_screen(key: String, screen: UIScreen):
-	screens[key] = screen;
+func _on_current_screen_close(screen: ScreenScene):
+	close_current_screen();
 
-func get_screen(key: String) -> UIScreen:
-	return screens.get(key);
-
-func is_screen_open(screen_key: String) -> bool:
-	var screen = screens[screen_key];
-	if screen == null: return false;
-	if screen == current_screen: return true;
-	return false;
-
-func open_screen(screen_key: String) -> bool:
-	if ui_parent == null: return false;
-	if current_screen != null: return false
-	
-	var screen = screens[screen_key];
-	if screen == null: return false;
+func open_screen(screen: Screen) -> ScreenScene:
+	if current_screen != null: return null;
+	if screen == null: return null;
 	
 	current_screen = screen;
-	screen.open();
-	return true;
+	
+	current_screen.open(ui_parent);
+	current_screen.screen.closed.connect(_on_current_screen_close);
+	return current_screen.screen;
 
-func close_screen() -> bool:
-	if current_screen == null: return false;
+func get_current_scene() -> ScreenScene:
+	return current_screen.screen;
+
+func close_current_screen():
+	current_screen.screen.closed.disconnect(_on_current_screen_close);
 	current_screen.close();
 	current_screen = null;
-	return true;
