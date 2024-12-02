@@ -79,7 +79,7 @@ func remove_item(item: Item, amount: int) -> int:
 func take_item(item: Item, amount: int) -> ItemStack:
 	if amount <= 0: return ItemStack.new(item, 0);
 	var remaining_amount = remove_item(item, amount);
-	if remaining_amount <= 0: return null;
+	if remaining_amount == amount: return null;
 	return ItemStack.new(item, amount-remaining_amount);
 
 # Returns the amount that could not be added.

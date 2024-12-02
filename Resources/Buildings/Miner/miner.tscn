@@ -1,16 +1,24 @@
-[gd_scene load_steps=7 format=3 uid="uid://o0leyo6bqktw"]
+[gd_scene load_steps=12 format=3 uid="uid://o0leyo6bqktw"]
 
-[ext_resource type="Script" path="res://Components/BuildSystem/BuildingScene/building_scene.gd" id="1_ugpd5"]
+[ext_resource type="Script" path="res://Resources/Buildings/Miner/miner.gd" id="1_il5hy"]
+[ext_resource type="Resource" uid="uid://b6ecme17rac2c" path="res://Resources/Items/iron_ore.tres" id="2_ctklr"]
 [ext_resource type="Texture2D" uid="uid://bnnq8lqd8rktm" path="res://Assets/Sprites/miner.png" id="2_qhpdk"]
+[ext_resource type="PackedScene" uid="uid://ejmexu6i8aey" path="res://Components/IO/output_node.tscn" id="3_212hi"]
 [ext_resource type="PackedScene" uid="uid://daoao5f5x4r5d" path="res://Components/DestroyButton/destroy_button.tscn" id="3_l1v7l"]
+[ext_resource type="Resource" uid="uid://nnbwsrfjkidx" path="res://Resources/Screens/BuildingSelectionScreen/building_selection_screen.tres" id="3_wq1wm"]
 [ext_resource type="Script" path="res://Components/KeepUpright/KeepUpright.gd" id="4_xqkub"]
 [ext_resource type="Script" path="res://Components/DestroyButton/DestroyLabel.gd" id="5_78xp7"]
+[ext_resource type="PackedScene" uid="uid://0oeyujhl4etr" path="res://Components/Interactable/interactable.tscn" id="6_j1t8b"]
+[ext_resource type="Script" path="res://Components/Inventory/inventory.gd" id="7_jie0s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjh5i"]
 size = Vector2(48, 48)
 
 [node name="Miner" type="StaticBody2D"]
-script = ExtResource("1_ugpd5")
+input_pickable = true
+script = ExtResource("1_il5hy")
+produced_ore = ExtResource("2_ctklr")
+miner_screen = ExtResource("3_wq1wm")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(24, 24)
@@ -20,11 +28,23 @@ shape = SubResource("RectangleShape2D_kjh5i")
 position = Vector2(24, 24)
 texture = ExtResource("2_qhpdk")
 
+[node name="OutputNode" parent="." instance=ExtResource("3_212hi")]
+position = Vector2(56, 40)
+
 [node name="DestroyButton" parent="." node_paths=PackedStringArray("actor_to_destroy") instance=ExtResource("3_l1v7l")]
 destroy_time = 5.0
 actor_to_destroy = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyButton"]
+position = Vector2(24, 24)
+shape = SubResource("RectangleShape2D_kjh5i")
+
+[node name="Interactable" parent="." instance=ExtResource("6_j1t8b")]
+collision_layer = 16
+collision_mask = 32
+enabled = false
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(24, 24)
 shape = SubResource("RectangleShape2D_kjh5i")
 
@@ -43,3 +63,17 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("5_78xp7")
 destroy_button = NodePath("../../DestroyButton")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("7_jie0s")
+inventory_size = 1
+
+[node name="ProductionTimer" type="Timer" parent="."]
+
+[node name="JustPlacedTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
+[connection signal="timeout" from="ProductionTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="JustPlacedTimer" to="." method="_on_just_placed_timer_timeout"]
