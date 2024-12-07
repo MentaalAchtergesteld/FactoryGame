@@ -1,0 +1,50 @@
+[gd_scene load_steps=7 format=3 uid="uid://c8p7pkdolrinc"]
+
+[ext_resource type="Script" path="res://Resources/Buildings/Belt/belt.gd" id="1_wi3yy"]
+[ext_resource type="Texture2D" uid="uid://coeuwo3m5uu05" path="res://Assets/Sprites/belt.png" id="2_fqr8j"]
+[ext_resource type="PackedScene" uid="uid://daoao5f5x4r5d" path="res://Components/DestroyButton/destroy_button.tscn" id="2_wqhk8"]
+[ext_resource type="Script" path="res://Components/KeepUpright/KeepUpright.gd" id="4_nnl8j"]
+[ext_resource type="Script" path="res://Components/DestroyButton/DestroyLabel.gd" id="5_50xe6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axj0s"]
+size = Vector2(16, 16)
+
+[node name="Belt" type="StaticBody2D"]
+script = ExtResource("1_wi3yy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_axj0s")
+
+[node name="DestroyButton" parent="." node_paths=PackedStringArray("actor_to_destroy") instance=ExtResource("2_wqhk8")]
+destroy_time = 0.1
+actor_to_destroy = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyButton"]
+position = Vector2(8, 8)
+shape = SubResource("RectangleShape2D_axj0s")
+
+[node name="Belt" type="Sprite2D" parent="."]
+position = Vector2(8, 8)
+texture = ExtResource("2_fqr8j")
+
+[node name="KeepUpright" type="Node2D" parent="."]
+position = Vector2(8, 8)
+script = ExtResource("4_nnl8j")
+
+[node name="DestroyLabel" type="Label" parent="KeepUpright" node_paths=PackedStringArray("destroy_button")]
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("5_50xe6")
+destroy_button = NodePath("../../DestroyButton")
+
+[node name="ItemMoveTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="ItemMoveTimer" to="." method="_on_item_move_timer_timeout"]

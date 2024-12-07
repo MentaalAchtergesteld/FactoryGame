@@ -1,0 +1,48 @@
+[gd_scene load_steps=4 format=3 uid="uid://dv3qojaea32mi"]
+
+[ext_resource type="Script" path="res://Components/BeltNetwork/belt_detector.gd" id="1_fe76x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_80q1x"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u23d0"]
+size = Vector2(16, 16)
+
+[node name="BeltDetector" type="Node2D"]
+script = ExtResource("1_fe76x")
+
+[node name="Top" type="Area2D" parent="."]
+position = Vector2(0, -16)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Top"]
+shape = SubResource("RectangleShape2D_80q1x")
+metadata/_edit_lock_ = true
+
+[node name="Right" type="Area2D" parent="."]
+position = Vector2(16, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right"]
+shape = SubResource("RectangleShape2D_u23d0")
+metadata/_edit_lock_ = true
+
+[node name="Bottom" type="Area2D" parent="."]
+position = Vector2(0, 16)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bottom"]
+shape = SubResource("RectangleShape2D_u23d0")
+metadata/_edit_lock_ = true
+
+[node name="Left" type="Area2D" parent="."]
+position = Vector2(-16, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left"]
+shape = SubResource("RectangleShape2D_u23d0")
+metadata/_edit_lock_ = true
