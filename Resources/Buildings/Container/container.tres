@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="Building" load_steps=5 format=3 uid="uid://btxet3r44p5hj"]
+
+[ext_resource type="PackedScene" uid="uid://bqiti7ay47ue3" path="res://Resources/Buildings/Container/container.tscn" id="1_7118f"]
+[ext_resource type="PackedScene" uid="uid://bpq5i3t40p5or" path="res://Resources/Buildings/Container/container_collision_map.tscn" id="1_area6"]
+[ext_resource type="Texture2D" uid="uid://0rqhu2i3fxiq" path="res://Assets/Sprites/container.png" id="1_b36rd"]
+[ext_resource type="Script" path="res://Components/BuildSystem/Building/building.gd" id="1_d8vkl"]
+
+[resource]
+script = ExtResource("1_d8vkl")
+name = "Container"
+description = "A container to store ya shit in."
+id = "container"
+building_scene = ExtResource("1_7118f")
+collision_sprite = ExtResource("1_b36rd")
+collision_map = ExtResource("1_area6")

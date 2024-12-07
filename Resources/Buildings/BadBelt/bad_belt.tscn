@@ -33,7 +33,7 @@ inventory = NodePath("../Inventory")
 
 [node name="DestroyButton" parent="." node_paths=PackedStringArray("actor_to_destroy") instance=ExtResource("6_2oj23")]
 position = Vector2(8, 8)
-destroy_time = 1.0
+destroy_time = 0.1
 actor_to_destroy = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyButton"]

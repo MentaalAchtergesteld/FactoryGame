@@ -11,15 +11,17 @@ func _init(_item: Item, _count: int = 0):
 func clone() -> ItemStack:
 	return ItemStack.new(item, count);
 
-func remove(amount: int):
+func remove(amount: int, simulate: bool = false):
 	var total_removed = min(count, amount);
-	count -= total_removed;
+	
+	if not simulate: count -= total_removed;
 	return amount - total_removed;
 
-func add(amount: int) -> int:
+func add(amount: int, simulate: bool = false) -> int:
 	var space_left = item.max_stack_size - count;
 	var total_added = min(space_left, amount);
-	count += total_added;
+	
+	if not simulate: count += total_added;
 	return total_added - amount;
 
 func is_full() -> bool:

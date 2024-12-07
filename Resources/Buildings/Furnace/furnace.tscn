@@ -21,7 +21,7 @@ position = Vector2(16, 16)
 texture = ExtResource("2_l3nmv")
 
 [node name="DestroyButton" parent="." node_paths=PackedStringArray("actor_to_destroy") instance=ExtResource("3_12282")]
-destroy_time = 4.0
+destroy_time = 3.0
 actor_to_destroy = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyButton"]

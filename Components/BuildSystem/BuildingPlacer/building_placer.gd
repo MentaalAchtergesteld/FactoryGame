@@ -10,7 +10,6 @@ extends Node2D
 @export var grid_size: Vector2 = Vector2(16, 16);
 
 @export_group("Debug")
-@export var debug_building: Building;
 @export var debug: bool = false;
 
 var current_ghost: BuildingGhostScene;
@@ -24,11 +23,6 @@ func _input(_event):
 	
 	if Input.is_action_just_pressed("rotate_building") && current_ghost != null:
 		current_ghost.rotate_clockwise();
-	
-	if !debug: return;
-	if debug_building == null: return;
-	if Input.is_action_just_pressed("start_placing_building"):
-		start_placing_building(debug_building);
 
 func get_mouse_grid_position() -> Vector2:
 	var mouse_position = get_global_mouse_position();

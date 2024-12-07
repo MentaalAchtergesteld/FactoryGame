@@ -4,9 +4,10 @@ extends BuildingScene
 @export var production_speed: float = 2.0;
 @export var production_amount: int = 1;
 
+@export var max_output: int = 1;
+
 @export var miner_screen: Screen;
 
-@onready var just_placed_timer: Timer = $JustPlacedTimer;
 @onready var interactable: Interactable = $Interactable;
 @onready var production_timer: Timer = $ProductionTimer;
 @onready var inventory: Inventory = $Inventory;
@@ -20,15 +21,11 @@ func _ready():
 var stack_to_push: ItemStack;
 
 func _process(delta):
-	if inventory.get_item_count(produced_ore) == 0: return;
+	var amount_to_push = min(inventory.get_item_count(produced_ore), max_output);
+	if amount_to_push <= 0: return;
 	
-	if stack_to_push == null:
-		stack_to_push = inventory.take_item(produced_ore, 1);
-	
-	var remaining_amount = output_node.push_item(stack_to_push.item, stack_to_push.count);
-	stack_to_push.count = remaining_amount;
-	if stack_to_push.count <= 0:
-		stack_to_push = null;
+	var remaining_amount_to_push = output_node.push(produced_ore, amount_to_push);
+	inventory.remove_item(produced_ore, amount_to_push-remaining_amount_to_push);
 
 func _on_timer_timeout():
 	inventory.add_item(produced_ore, production_amount);
@@ -39,4 +36,4 @@ func _on_just_placed_timer_timeout():
 
 func _on_interactable_interacted():
 	print("Time Left: " + str(production_timer.time_left));
-	inventory.debug();
+	print(inventory.debug());

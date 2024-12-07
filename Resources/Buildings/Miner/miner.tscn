@@ -24,15 +24,8 @@ miner_screen = ExtResource("3_wq1wm")
 position = Vector2(24, 24)
 shape = SubResource("RectangleShape2D_kjh5i")
 
-[node name="Miner" type="Sprite2D" parent="."]
-position = Vector2(24, 24)
-texture = ExtResource("2_qhpdk")
-
-[node name="OutputNode" parent="." instance=ExtResource("3_212hi")]
-position = Vector2(56, 40)
-
 [node name="DestroyButton" parent="." node_paths=PackedStringArray("actor_to_destroy") instance=ExtResource("3_l1v7l")]
-destroy_time = 5.0
+destroy_time = 2.0
 actor_to_destroy = NodePath("..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyButton"]
@@ -47,6 +40,13 @@ enabled = false
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Interactable"]
 position = Vector2(24, 24)
 shape = SubResource("RectangleShape2D_kjh5i")
+
+[node name="Miner" type="Sprite2D" parent="."]
+position = Vector2(24, 24)
+texture = ExtResource("2_qhpdk")
+
+[node name="OutputNode" parent="." instance=ExtResource("3_212hi")]
+position = Vector2(56, 40)
 
 [node name="KeepUpright" type="Node2D" parent="."]
 position = Vector2(24, 24)
@@ -66,7 +66,6 @@ destroy_button = NodePath("../../DestroyButton")
 
 [node name="Inventory" type="Node" parent="."]
 script = ExtResource("7_jie0s")
-inventory_size = 1
 
 [node name="ProductionTimer" type="Timer" parent="."]
 

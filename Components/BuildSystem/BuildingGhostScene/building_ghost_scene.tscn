@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://busw5muchqb7d"]
+[gd_scene load_steps=2 format=3 uid="uid://busw5muchqb7d"]
 
 [ext_resource type="Script" path="res://Components/BuildSystem/BuildingGhostScene/building_ghost_scene.gd" id="1_h01xb"]
-[ext_resource type="Texture2D" uid="uid://o1eio5wf1hek" path="res://Assets/Sprites/test_building.png" id="2_x2p2t"]
 
 [node name="BuildingGhostScene" type="Node2D"]
 z_index = 1
@@ -12,4 +11,3 @@ rotation = 1.5708
 
 [node name="Sprite2D" type="Sprite2D" parent="RotationPoint"]
 self_modulate = Color(1, 1, 1, 0.498039)
-texture = ExtResource("2_x2p2t")

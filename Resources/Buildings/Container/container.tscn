@@ -1,0 +1,102 @@
+[gd_scene load_steps=11 format=3 uid="uid://bqiti7ay47ue3"]
+
+[ext_resource type="Script" path="res://Resources/Buildings/Container/container.gd" id="1_236n3"]
+[ext_resource type="PackedScene" uid="uid://daoao5f5x4r5d" path="res://Components/DestroyButton/destroy_button.tscn" id="2_jh4dm"]
+[ext_resource type="Texture2D" uid="uid://0rqhu2i3fxiq" path="res://Assets/Sprites/container.png" id="2_o6kwg"]
+[ext_resource type="PackedScene" uid="uid://ejmexu6i8aey" path="res://Components/IO/output_node.tscn" id="2_orw8e"]
+[ext_resource type="PackedScene" uid="uid://rwvdhvwcwga4" path="res://Components/IO/input_node.tscn" id="3_leffg"]
+[ext_resource type="Script" path="res://Components/Interactable/interactable.gd" id="5_1tu15"]
+[ext_resource type="Script" path="res://Components/DestroyButton/DestroyLabel.gd" id="7_26qfi"]
+[ext_resource type="Script" path="res://Components/KeepUpright/KeepUpright.gd" id="8_kj1t6"]
+[ext_resource type="Script" path="res://Components/Inventory/inventory.gd" id="9_bfjfi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3uv8i"]
+size = Vector2(48, 48)
+
+[node name="Container" type="StaticBody2D"]
+script = ExtResource("1_236n3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(24, 24)
+shape = SubResource("RectangleShape2D_3uv8i")
+
+[node name="DestroyButton" parent="." node_paths=PackedStringArray("actor_to_destroy") instance=ExtResource("2_jh4dm")]
+destroy_time = 3.0
+actor_to_destroy = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DestroyButton"]
+position = Vector2(24, 24)
+shape = SubResource("RectangleShape2D_3uv8i")
+
+[node name="Interactable" type="Area2D" parent="."]
+script = ExtResource("5_1tu15")
+enabled = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interactable"]
+position = Vector2(24, 24)
+shape = SubResource("RectangleShape2D_3uv8i")
+
+[node name="Container" type="Sprite2D" parent="."]
+position = Vector2(24, 24)
+texture = ExtResource("2_o6kwg")
+
+[node name="OutputNode" parent="." instance=ExtResource("2_orw8e")]
+position = Vector2(56, 24)
+
+[node name="InputNode" parent="." node_paths=PackedStringArray("inventory") instance=ExtResource("3_leffg")]
+position = Vector2(8, 24)
+inventory = NodePath("../Inventory")
+
+[node name="KeepUpright" type="Node2D" parent="."]
+position = Vector2(24, 24)
+script = ExtResource("8_kj1t6")
+
+[node name="DestroyLabel" type="Label" parent="KeepUpright" node_paths=PackedStringArray("destroy_button")]
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 24.0
+offset_bottom = 23.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("7_26qfi")
+destroy_button = NodePath("../../DestroyButton")
+
+[node name="InventoryLabel" type="Label" parent="KeepUpright"]
+offset_left = -40.0
+offset_top = -310.0
+offset_right = 40.0
+offset_bottom = -24.0
+theme_override_font_sizes/font_size = 10
+text = "Inventory:
+0: Empty
+1: Empty
+2: Empty
+3: Empty
+4: Empty
+5: Empty
+6: Empty
+7: Empty
+8: Empty
+9: Empty
+10: Empty
+11: Empty
+12: Empty
+13: Empty
+14: Empty
+15: Empty"
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("9_bfjfi")
+inventory_size = 16
+
+[node name="JustPlacedtimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="interacted" from="Interactable" to="." method="_on_interactable_interacted"]
+[connection signal="inventory_updated" from="Inventory" to="." method="_on_inventory_inventory_updated"]
+[connection signal="timeout" from="JustPlacedtimer" to="." method="_on_just_placedtimer_timeout"]

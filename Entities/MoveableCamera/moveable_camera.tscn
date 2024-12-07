@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dyk8vymydmcks"]
+[gd_scene load_steps=5 format=3 uid="uid://dyk8vymydmcks"]
 
 [ext_resource type="Script" path="res://Entities/MoveableCamera/moveable_camera.gd" id="1_4x65c"]
 [ext_resource type="Resource" uid="uid://nnbwsrfjkidx" path="res://Resources/Screens/BuildingSelectionScreen/building_selection_screen.tres" id="2_qwd7t"]
 [ext_resource type="Script" path="res://Components/BuildSystem/BuildingPlacer/building_placer.gd" id="2_x13tt"]
-[ext_resource type="Resource" uid="uid://dgquiyc3rh2bu" path="res://Resources/Buildings/TestBuilding/test_building.tres" id="3_q540e"]
 [ext_resource type="Texture2D" uid="uid://fp0d4ec42455" path="res://Assets/Sprites/dog.png" id="4_jdqy5"]
 
 [node name="MoveableCamera" type="Node2D"]
@@ -17,7 +16,6 @@ building_selection_screen = ExtResource("2_qwd7t")
 [node name="BuildingPlacer" type="Node2D" parent="."]
 script = ExtResource("2_x13tt")
 max_place_range = 512.0
-debug_building = ExtResource("3_q540e")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.125, 0.125)

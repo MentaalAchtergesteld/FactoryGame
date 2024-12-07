@@ -1,133 +1,182 @@
+@tool
 class_name Inventory
 extends Node
 
-signal item_added(slot: int, stack: ItemStack);
-signal item_removed(slot: int, stack: ItemStack);
-signal slot_updated(slot: int, stack: ItemStack);
+enum UpdateType {
+	Add,
+	Remove
+}
+
+signal inventory_updated(slot_index: int, item_stack: ItemStack, update_type: UpdateType);
+signal inventory_resized(new_size: int);
 
 @export var inventory_size: int = 8:
 	set(value):
 		inventory_size = value;
-		update_inventory_size();
+		resize_inventory();
 
-var inventory: Array[ItemStack] = [];
+#@export var override_stack_size: bool = false:
+#	set(value):
+#		override_stack_size = value;
+#		notify_property_list_changed();
 
-func update_inventory_size():
-	inventory.resize(inventory_size);
+#var max_stack_size: int = 32;
+
+var inventory: Array[ItemStack];
+
+#func _get_property_list() -> Array:
+#	var properties = [];
+#	
+#	if override_stack_size:
+#		properties.append({
+#			"name": "max_stack_size",
+#			"type": TYPE_INT,
+#			"hint": PROPERTY_HINT_RANGE,
+#			"hint_string": "1,999,1",
+#			"usage": PROPERTY_USAGE_DEFAULT
+#		})
+#	
+#	return properties;
 
 func _ready():
-	update_inventory_size();
+	resize_inventory();
 
-func debug():
-	for i in range(inventory.size()):
-		var stack = inventory[i];
+func resize_inventory():
+	inventory.resize(inventory_size);
+	inventory_resized.emit(inventory_size);
+
+func debug() -> String:
+	var string = "";
+	
+	string += "Inventory:\n";
+	
+	for slot_index in range(inventory.size()):
+		string += str(slot_index) + ": ";
+		
+		var stack = inventory[slot_index];
+		
 		if stack == null:
-			print("Slot " + str(i) + ": Empty");
+			string += "Empty\n";
 		else:
-			print("Slot " + str(i) + ": " + str(stack.count) + " " + stack.item.name);
+			string += str(stack.count) + " " + stack.item.name + "(s)\n";
+	
+	return string;
+
+# Returns the count of items that could NOT be added.
+func add_item(item: Item, count: int, simulate: bool = false) -> int:
+	if item == null or count < 1: return count;
+	
+	var remaining = count;
+	
+	# First, try to fill already existing stacks of this Item type.
+	for slot_index in range(inventory.size()):
+		var stack = inventory[slot_index];
+		if stack == null or stack.item != item: continue;
+		
+		var remaining_from_add = stack.add(remaining, simulate);
+		
+		if not simulate and remaining_from_add != remaining:
+			inventory_updated.emit(slot_index, stack, UpdateType.Add);
+		
+		remaining = remaining_from_add;
+		if remaining <= 0: return 0;
+	
+	# If there are still items remaining, try empty slots.
+	for slot_index in range(inventory.size()):
+		if inventory[slot_index] != null: continue;
+		
+		inventory[slot_index] = ItemStack.new(item, 0);
+		var remaining_from_add = inventory[slot_index].add(remaining, simulate);
+		
+		if not simulate and remaining_from_add != remaining:
+			inventory_updated.emit(slot_index, inventory[slot_index], UpdateType.Add);
+		
+		remaining = remaining_from_add;
+		if remaining <= 0: return 0;
+	
+	# Finally, return the amount of items that couldn't be added.
+	return remaining;
+
+# Returns the count of items that could NOT be removed.
+func remove_item(item: Item, count: int, simulate: bool = false) -> int:
+	if item == null or count < 1: return count;
+	
+	var remaining = count;
+	
+	for slot_index in range(inventory.size()):
+		var stack = inventory[slot_index];
+		if stack == null or stack.item != item: continue;
+		
+		var remaining_from_remove = stack.remove(remaining, simulate);
+		
+		if not simulate and remaining_from_remove != remaining:
+			inventory_updated.emit(slot_index, stack, UpdateType.Remove);
+			
+			if stack.count == 0:
+				inventory[slot_index] = null;
+		
+		remaining = remaining_from_remove;
+		if remaining <= 0: return 0;
+		
+	return remaining;
+
+# This slot returns an itemstack with the requested count, or less if the inventory doesn't contain so much.
+func take_item(item: Item, count: int) -> ItemStack:
+	var remaining = remove_item(item, count);
+	
+	if remaining == count:
+		return null;
+	else:
+		return ItemStack.new(item, count-remaining);
 
 func is_slot_within_bounds(slot: int) -> bool:
-	var is_within_bounds = slot >= 0 and slot < inventory_size;
-	if not is_within_bounds: print_debug("Tried accessing an inventory slot out of bounds: " + str(slot));
-	return is_within_bounds
+	return slot >= 0 and slot < inventory.size();
 
-# Returns the amount that could not be added.
-func add_item(item: Item, amount: int) -> int:
-	if amount <= 0: return amount;
-	var remaining_amount = amount;
+func add_item_to_slot(slot_index: int, item: Item, count: int, simulate: bool = false) -> int:
+	if not is_slot_within_bounds(slot_index): return count;
 	
-	# Try to fill out any item stack with a matching item.
-	for i in range(inventory.size()):
-		var stack = inventory[i];
-		if stack and stack.item == item and not stack.is_full():
-			remaining_amount = add_to_slot(i, item, remaining_amount);
-			item_added.emit(i, stack);
-			
-			if remaining_amount <= 0:
-				return remaining_amount;
+	var stack = inventory[slot_index];
 	
-	# If not all items could be added, try adding to empty slots.
-	for i in range(inventory.size()):
-		if inventory[i] != null: continue;
-		remaining_amount = add_to_slot(i, item, remaining_amount);
-		item_added.emit(i, inventory[i]);
-		
-		if remaining_amount <= 0:
-			return remaining_amount;
-	
-	return remaining_amount;
-
-# Returns the amount that could not be removed.
-func remove_item(item: Item, amount: int) -> int:
-	if amount <= 0: return amount;
-	var remaining_amount = amount;
-	
-	for i in range(inventory.size()):
-		var stack = inventory[i];
-		if stack and stack.item == item:
-			remaining_amount = remove_from_slot(i, remaining_amount);
-			item_removed.emit(i, stack);
-			
-			if stack.count <= 0:
-				inventory[i] = null;
-			
-			if remaining_amount <= 0:
-				return remaining_amount;
-	
-	return remaining_amount;
-
-func take_item(item: Item, amount: int) -> ItemStack:
-	if amount <= 0: return ItemStack.new(item, 0);
-	var remaining_amount = remove_item(item, amount);
-	if remaining_amount == amount: return null;
-	return ItemStack.new(item, amount-remaining_amount);
-
-# Returns the amount that could not be added.
-func add_to_slot(slot: int, item: Item, amount: int) -> int:
-	if amount <= 0: return amount;
-	if not is_slot_within_bounds(slot): return amount;
-	
-	var stack = inventory[slot];
 	if stack == null:
-		inventory[slot] = ItemStack.new(item);
-		stack = inventory[slot];
+		stack = ItemStack.new(item, 0);
+		if not simulate:
+			inventory[slot_index] = stack;
 	
-	if stack.item != item or stack.is_full(): return amount;
+	var remaining = stack.add(count, simulate);
 	
-	var remaining_amount = stack.add(amount);
+	if not simulate:
+		inventory_updated.emit(slot_index, stack, UpdateType.Add);
 	
-	slot_updated.emit(slot, stack);
-	return remaining_amount;
+	return remaining;
 
-# Returns the amount that could not be removed.
-func remove_from_slot(slot: int, amount: int) -> int:
-	if amount <= 0: return amount;
-	if not is_slot_within_bounds(slot): return 0
+func remove_item_from_slot(slot_index: int, count: int, simulate: bool = false) -> int:
+	if not is_slot_within_bounds(slot_index): return count;
 	
-	var stack = inventory[slot];
-	if stack == null: return amount;
+	var stack = inventory[slot_index];
 	
-	var remaining_amount = stack.remove(amount);
+	if stack == null: return count;
 	
-	slot_updated.emit(slot, stack);
-	return remaining_amount;
-
-func set_slot(slot: int, stack: ItemStack) -> bool:
-	if not is_slot_within_bounds(slot): return false;
+	var remaining = stack.remove(count, simulate);
 	
-	inventory[slot] = stack;
+	if not simulate:
+		inventory_updated.emit(slot_index, stack, UpdateType.Remove);
 	
-	slot_updated.emit(slot, stack);
-	return true;
-
-func get_slot(slot: int) -> ItemStack:
-	if not is_slot_within_bounds(slot): return null;
-	return inventory[slot];
+	return remaining;
 
 func get_item_count(item: Item) -> int:
-	var total_count = 0;
-	for i in range(inventory.size()):
-		var stack = inventory[i];
-		if stack and stack.item == item:
-			total_count += stack.count;
-	return total_count;
+	var total = 0;
+	
+	for slot in inventory:
+		if slot == null or slot.item != item: continue;
+		
+		total += slot.count;
+	
+	return total;
+
+func has_item(item: Item) -> bool:
+	return get_item_count(item) > 0;
+
+func get_stack_in_slot(slot_index: int) -> ItemStack:
+	if not is_slot_within_bounds(slot_index): return null;
+	
+	return inventory[slot_index];

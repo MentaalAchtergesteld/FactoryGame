@@ -13,11 +13,11 @@ func _on_screen_building_selected(building: Building):
 	building_placer.start_placing_building(building);
 
 func _on_screen_close(screen: ScreenScene):
-	screen.closed.disconnect(_on_screen_close);
+	#screen.closed.disconnect(_on_screen_close);
 	if not (screen is BuildingSelectionScreenScene): return;
 	
 	var building_selection_screen_node = screen as BuildingSelectionScreenScene;
-	building_selection_screen_node.building_selected.disconnect(_on_screen_building_selected);
+	#building_selection_screen_node.building_selected.disconnect(_on_screen_building_selected);
 
 func open_screen():
 	var screen_node = UIManager.open_screen(building_selection_screen);
